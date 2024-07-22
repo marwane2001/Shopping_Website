@@ -1,25 +1,43 @@
+# Ignore the build directory
+/build/
 
-###> symfony/framework-bundle ###
+# Ignore the cache and log directories
+/var/cache/
+/var/log/
+
+# Ignore the .env file and .env.local which are local environment configuration
+/.env
 /.env.local
-/.env.local.php
 /.env.*.local
-/config/secrets/prod/prod.decrypt.private.php
-/public/bundles/
-/var/
+/.env.test.local
+/.env.*.test
+
+# Ignore the vendor directory
 /vendor/
-###< symfony/framework-bundle ###
 
-###> phpunit/phpunit ###
-/phpunit.xml
+# Ignore IDE and editor-specific files
+/.idea/
+/*.iml
+/.vscode/
+/nbproject/
+*.sublime-workspace
+
+# Ignore node modules directory if you are using Node.js
+/node_modules/
+
+# Ignore compiled assets
+/public/build/
+
+# Ignore composer files
+/composer.lock
+/vendor/composer/
+
+# Ignore PHPUnit result cache
 .phpunit.result.cache
-###< phpunit/phpunit ###
 
-###> symfony/phpunit-bridge ###
-.phpunit.result.cache
-/phpunit.xml
-###< symfony/phpunit-bridge ###
+# Ignore other common files
+.DS_Store
+Thumbs.db
 
-###> symfony/asset-mapper ###
-/public/assets/
-/assets/vendor/
-###< symfony/asset-mapper ###
+# Ignore Symfony Encore Webpack output
+/public/build/
