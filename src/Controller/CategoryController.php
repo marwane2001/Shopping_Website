@@ -16,7 +16,7 @@ class CategoryController extends AbstractController
         //categoryrepositorty dependency makes a connection with db
         $category = $categoryRepository->findOneBySlug($slug);
 
-        return $this->render('category/products.html.twig', [
+        return $this->render('category/category.html.twig', [
             'category' => $category,
         ]);
     }

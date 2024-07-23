@@ -47,7 +47,6 @@ class Product
     public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -59,7 +58,6 @@ class Product
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;
-
         return $this;
     }
 
@@ -71,7 +69,6 @@ class Product
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
@@ -83,7 +80,6 @@ class Product
     public function setIllustration(string $illustration): static
     {
         $this->illustration = $illustration;
-
         return $this;
     }
 
@@ -95,14 +91,17 @@ class Product
     public function setPrice(float $price): static
     {
         $this->price = $price;
-
         return $this;
     }
-    public function getpriceWt()
-    {
-        $math=1+($this->tva/100);
 
-        return $math;
+    public function getPriceWt(): ?float
+    {
+        if ($this->price === null || $this->tva === null) {
+            return null;
+        }
+
+        $priceWithTva = $this->price * (1 + ($this->tva / 100));
+        return $priceWithTva;
     }
 
     public function getTva(): ?float
@@ -113,7 +112,6 @@ class Product
     public function setTva(float $tva): static
     {
         $this->tva = $tva;
-
         return $this;
     }
 
@@ -125,7 +123,6 @@ class Product
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
-
         return $this;
     }
 }
