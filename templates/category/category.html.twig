@@ -12,7 +12,7 @@
                         <img src="/upload-dir/{{ product.illustration }}" class="img-fluid">
                         <span class="d-block fw-bold text-black">{{ product.name }}</span>
                     </a>
-                    <span class="d-block">{{ product.priceWt }}</span>
+                    <span class="d-block">{{ product.priceWt|price }}</span>
                 </div>
             {% endfor %}
         </div>
