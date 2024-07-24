@@ -8,6 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: AdressRepository::class)]
 class Adress
 {
+    public function __toString():string
+    {   return  $this->getAddress();
+
+    }
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
