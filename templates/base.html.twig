@@ -39,7 +39,7 @@
                         <a href={{ path('app_account') }}><i data-feather="user"></i></a>
                         <a href={{ path('app_logout') }}><i data-feather="log-out"></i></a>
                         {% else %}
-                            <a href="/connexion"><i data-feather="user"></i></a>
+                            <a href="{{ path('app_login') }}"><i data-feather="user"></i></a>
                     {% endif %}
                     <a href={{ path('app_cart') }}><i data-feather="shopping-cart"></i>
                     <span class="badge text-bg-light">{{ fullCartQuantity }}</span>

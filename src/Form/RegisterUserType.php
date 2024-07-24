@@ -19,21 +19,21 @@ class RegisterUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email',EmailType::class,['label'=>'Entrez votre adresse email','attr'=>[
-                'placeholder'=>'Entrez votre adresse email',
+            ->add('email',EmailType::class,['label'=>'E-mail','attr'=>[
+                'placeholder'=>'Enter your e-mail',
             ]])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'constraints'=>[new Length(['min'=>6,'max'=>30])],
-                'first_options'  => ['label' => 'Mot de passe', 'hash_property_path' => 'password','attr'=>['placeholder'=>'Mot de passe']],
-                'second_options' => ['label' => 'Repetez le mot de passe', 'hash_property_path' => 'password','attr'=>['placeholder'=>'Repetez le mot de passe']],
+                'first_options'  => ['label' => 'Password', 'hash_property_path' => 'password','attr'=>['placeholder'=>'Password']],
+                'second_options' => ['label' => 'Repeat Password', 'hash_property_path' => 'password','attr'=>['placeholder'=>'Password']],
                 'mapped' => false,
             ])
-            ->add('firstname',TextareaType::class,['label'=>'Entrez votre prenom','attr'=>[
-                'placeholder'=>'Entrez votre prenom'
+            ->add('firstname',TextareaType::class,['label'=>'Firstname','attr'=>[
+                'placeholder'=>'Enter your name',
             ],'constraints'=>[new Length(['min'=>2,'max'=>30])],])
-            ->add('lastname',TextareaType::class,['label'=>'Entrez votre nom','attr'=>['placeholder'=>'Entrez votre nom'],'constraints'=>[new Length(['min'=>2,'max'=>30])],])
-            ->add('Valider',SubmitType::class,['attr'=>['class'=>'btn btn-success']])
+            ->add('lastname',TextareaType::class,['label'=>'Lastname','attr'=>['placeholder'=>'Enter your last name'],'constraints'=>[new Length(['min'=>2,'max'=>30])],])
+            ->add('Submit',SubmitType::class,['attr'=>['class'=>'btn btn-success']])
 
         ;
     }
