@@ -8,7 +8,7 @@
 
         {{ form_start(deliveryform) }}
             {{ form_row(deliveryform.addresses) }}
-        <button class="btn btn-outline-info small " href="{{ path('app_account_address_form') }}">Add a delivery address</button>
+        <a class="btn btn-outline-info small " href="{{ path('app_account_address_form') }}">Add a delivery address</a>
             <hr class="mt-5">
             {{ form_row(deliveryform.carrier) }}
         {{ form_end(deliveryform) }}
