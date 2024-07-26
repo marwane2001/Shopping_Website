@@ -9,6 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CarrierRepository::class)]
 class Carrier
 {
+    public function __toString():string
+    {
+        $price=number_format($this->getPrice(),'2',',').'$';
+
+        return $this->getName().'<br/>'.$price.'<br/>'.$this->getDescription();
+    }
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

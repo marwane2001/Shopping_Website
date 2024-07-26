@@ -2,6 +2,7 @@
 
 namespace App\Controller\Account;
 
+use App\Class\Cart;
 use App\Entity\Adress;
 use App\Form\AddressUserType;
 use App\Form\PasswordUserType;
@@ -29,7 +30,7 @@ class AddressController extends AbstractController{
     }
 
     #[Route('/compte/address/add/{id}', name: 'app_account_address_form',defaults: ['id'=>null])]
-    public function form(Request $request,$id,AdressRepository $adressRepository): Response
+    public function form(Request $request,$id,AdressRepository $adressRepository,Cart $cart): Response
     {
         if ($id) {
             $address=$adressRepository->findOneById($id);
@@ -52,6 +53,10 @@ class AddressController extends AbstractController{
                 'success',
                 'Your address has been saved,Successfully!'
             );
+
+           if($cart->fullQuantity()>0){
+               return $this->redirectToRoute('app_order');
+           }
             return $this->redirectToRoute('app_account_addresses');
         }
         return $this->render('account/address/form.html.twig',

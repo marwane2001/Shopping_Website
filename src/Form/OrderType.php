@@ -6,6 +6,7 @@ use App\Entity\Adress;
 use App\Entity\Carrier;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,7 +31,11 @@ class OrderType extends AbstractType
                 'expanded' => true,
                 'label_html'=>true
             ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Submit','attr'=>['class'=>'btn btn-success w-100']
+            ])
         ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

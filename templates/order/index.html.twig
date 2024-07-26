@@ -3,12 +3,15 @@
 
 
 {% block body %}
-    <div class="container my-5">
+    <div class="container my-5 small-container">
         <h1>My Order</h1>
 
-        {{ form(deliveryform) }}
-        <br>
-        choose your shipping method
+        {{ form_start(deliveryform) }}
+            {{ form_row(deliveryform.addresses) }}
+        <button class="btn btn-outline-info small " href="{{ path('app_account_address_form') }}">Add a delivery address</button>
+            <hr class="mt-5">
+            {{ form_row(deliveryform.carrier) }}
+        {{ form_end(deliveryform) }}
 
     </div>
 

@@ -20,7 +20,13 @@ class OrderController extends AbstractController
         if ($user === null) {
             return $this->redirectToRoute('app_login');
         }
-        $addresses = $user->getAdresses() ?? []; // Handle null or empty addresses
+
+        $addresses = $user->getAdresses() ?? [];
+        if (count( $addresses)==0){
+            return $this->redirectToRoute('app_account_address_form');
+
+        }
+
         $form = $this->createForm(OrderType::class, null, [
             'addresses' => $addresses
         ]);
