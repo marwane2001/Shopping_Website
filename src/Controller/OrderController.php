@@ -63,6 +63,7 @@ class OrderController extends AbstractController{
             $address .=$addressObj->getPhone().'<br>';
 
             $order=new Order();
+            $order->setUser($this->getUser());
             $order->setCreatedAt(new \DateTime('now'));
             $order->setState(1);
             $order->setCarrier($form->get('carrier')->getData()->getName());      #carrier = carriername
