@@ -27,7 +27,7 @@
                     </div>
                 {% endfor %}
                 <hr style="width:50%;text-align:left;margin-left:0">
-
+                <div class="bg-light p-3 my-3">
                 <br>
                 <strong>Address :</strong>
                 <br>
@@ -44,16 +44,16 @@
                 Carrier Name : {{ choices.carrier.name }}
                 <br>
                 Carrier Description : {{ choices.carrier.description }}
-
+                </div>
             </div>
 
             <div class="col-md-4">
                 <div class="bg-light p-3" >
                     <div class="d-flex justify-content-between">
                             <span class="fw-bold">Total Products : </span>
-                        {%for product in cart %}
-                            <span>{{ product.qty }}</span>
-                        {% endfor %}
+
+                            <span>{{fullCartQuantity }}</span>
+
                        </div>
                     <div class="d-flex justify-content-between mt-3">
                             <span class="fw-bold">Total Shipping: </span>
