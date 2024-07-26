@@ -9,7 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Adress
 {
     public function __toString():string
-    {   return  $this->getAddress();
+    {   return  $this->getFirstname().''.$this->getLastname().'<br/>'.$this->getAddress().'<br/>'.$this->getCity().'-'.$this->getCity();
+
+
 
     }
     #[ORM\Id]
