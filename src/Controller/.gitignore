@@ -1,0 +1,6 @@
+# Ignore the .env file and .env.local which are local environment configuration
+/.env
+/.env.local
+/.env.*.local
+/.env.test.local
+/.env.*.test

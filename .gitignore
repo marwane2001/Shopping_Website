@@ -38,5 +38,5 @@
 .DS_Store
 Thumbs.db
 
-# Ignore Symfony Encore Webpack output
-/public/build/
+
+

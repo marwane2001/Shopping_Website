@@ -13,21 +13,28 @@ class PaymentController extends AbstractController
     #[Route('/order/payment', name: 'app_payment')]
     public function index(): Response
     {
-        Stripe::setApiKey('sk_test_51PhavhDFgY22qD8WNGk1imWFXN6aa7X596TZPs9iY3qcNkw2kGzQYKq28kUYZoe9cr1xQVMh8gysZL3yKNOQQnDC00b90MF0gQ');
+        $stripeApiKey = $_ENV['STRIPE_API_KEY'];
+        Stripe::setApiKey($stripeApiKey);
         $YOUR_DOMAIN = 'http://127.0.0.1:3000';
 
 
         $checkout_session = Session::create([
             'line_items' => [[
-                # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
-                'price' => '{{PRICE_ID}}',
+                'price_data' =>[
+                    'currency' => 'eur',
+                    'unit_amount' => 10020,
+                    'product_data' => [
+                        'name' => 'Test Product',
+                    ]
+                ] ,
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
             'success_url' => $YOUR_DOMAIN . '/success.html',
             'cancel_url' => $YOUR_DOMAIN . '/cancel.html',
         ]);
+        header("HTTP/1.1 301 See Other");
+        return $this->redirect($checkout_session->url);
 
-        die('ok');
     }
 }
