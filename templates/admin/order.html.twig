@@ -2,10 +2,10 @@
 
 {% block main %}
 
-    <h3>Commande n°{{ order.id }}</h3>
+    <h3>Order n°{{ order.id }}</h3>
     {{ include('admin/state.html.twig', { field : { 'value' : order.state } } ) }}
     <br/>
-    <span>Passée le {{ order.createdAt|date('d/m/Y') }}</span>
+    <span>Order Date : {{ order.createdAt|date('d/m/Y') }}</span>
 
     <div class="row my-4">
         <div class="col-md-6">
@@ -14,15 +14,55 @@
         </div>
         <div class="col-md-6">
             <strong>Transporteur</strong><br/>
-            {{ order.carrierName }}
+            <span>Name:{{ order.carrier }}</span>
         </div>
     </div>
 
     <strong>Contenu de la commande :</strong><br/>
-    {{ dump(order) }}
+
 
     {% for product in order.orderDetails %}
-        {{ dump(product) }}
     {% endfor %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Illustration</th>
+            <th scope="col">Name of product</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Unit Pricing</th>
+            <th scope="col">VAT</th>
+            <th scope="col">Price Taxes Inc</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in order.orderDetails %}
+            <tr>
+                <td> {{ product.prodcutIllustration }} </td>
+                <td> {{ product.product }} </td>
+                <td>  {{ product.productQuantity }} </td>
+                <td> {{ product.productPrice|price }} </td>
+                <td> {{ product.productTva }} </td>
+                  {% set coeff= 1+(product.productPrice/100) %}
+                <td> {{ ((product.productPrice * coeff)*product.productQuantity)|price }} </td>
+
+            </tr>
+        {%endfor%}
+        <tr>
+            <td></td>
+            <td>{{ order.carrier }}</td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+            <td>{{ order.carrierPrice|price }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="text-right fs-4">
+        <strong>Total taxes Not Inc. </strong>{{ (order.totalWt-order.totalTva)|price }}
+        <br>
+        <strong>Total VAT</strong>{{ order.totalTva|price }}
+        <br>
+        <strong>Total taxes Inc: </strong>{{ order.totalWt|price }}
+    </div>
 
 {% endblock %}

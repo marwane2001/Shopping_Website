@@ -45,7 +45,9 @@ class OrderCrudController extends AbstractCrudController
     {
         $order = $context->getEntity()->getInstance();
 
-        return $this->render('admin/order.html.twig');
+        return $this->render('admin/order.html.twig',[
+            'order' => $order,
+        ]);
     }
 
 
