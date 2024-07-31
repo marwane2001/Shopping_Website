@@ -1,2 +1,10 @@
-<h1>This a elearning website</h1>
-<h2>The website is still under construction</h2>
+
+An Online Shopping website developed using Symfony and Bootstrap.
+--------link will be displayed later--------
+
+Running the project
+
+   
+
+Project Developer
+Marwane Skaro
