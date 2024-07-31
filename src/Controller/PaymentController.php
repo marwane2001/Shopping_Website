@@ -10,43 +10,71 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class PaymentController extends AbstractController
 {
+    
+
 
     #[Route('/order/payment/{id_order}', name: 'app_payment')]
     public function index($id_order,OrderRepository $orderRepository): Response
-    {   $order=$orderRepository->findOneById($id_order);
+    {
+        $YOUR_DOMAIN = $_ENV['DOMAIN'];
+        $stripeApiKey = $_ENV['STRIPE_API_KEY'];
+        Stripe::setApiKey($stripeApiKey);
+        $order=$orderRepository->findOneById($id_order);
+
+   
+        if(!$order){
+            return $this->redirectToRoute('app_home');
+        }
+
+
+
+        $product_for_stripe=[];
 
         foreach ($order->getOrderDetails() as $product){
-            $product_for_stripe=[
+            $product_for_stripe[]=[
 
                     'price_data' =>[
                         'currency' => 'eur',
-                        'unit_amount' => $product->getPrice(),
+                        'unit_amount' => number_format($product->getProductPriceWt()*100,0,'',''),
                         'product_data' => [
-                            'name' => 'Test Product',
+                            'name' => $product->getProduct(),
+                            'images' => [
+                                $YOUR_DOMAIN.'/upload-dir/'.$product->getProdcutIllustration()
+                            ]
+                          
                         ]
                     ] ,
-                    'quantity' => 1,
+                    'quantity' => $product->getProductQuantity(),
 
 
             ];
-            dd($product);
-
+           
+            
         }
-        $stripeApiKey = $_ENV['STRIPE_API_KEY'];
-        Stripe::setApiKey($stripeApiKey);
-        $YOUR_DOMAIN = 'http://127.0.0.1:3000';
+    
+        $product_for_stripe[]=[
+
+            'price_data' =>[
+                'currency' => 'eur',
+                'unit_amount' => number_format($order->getCarrierPrice()*100,0,'',''),
+                'product_data' => [
+                    'name' => 'Carrier :'.$order->getCarrier(),
+                ]
+            ] ,
+            'quantity' => 1,
+
+
+    ];
+
+
+
+
 
 
         $checkout_session = Session::create([
-            'line_items' => [[
-                'price_data' =>[
-                    'currency' => 'eur',
-                    'unit_amount' => 10020,
-                    'product_data' => [
-                        'name' => 'Test Product',
-                    ]
-                ] ,
-                'quantity' => 1,
+            'customer_email'=>$this->getUser()->getEmail(),
+                'line_items' => [[
+                    $product_for_stripe
             ]],
             'mode' => 'payment',
             'success_url' => $YOUR_DOMAIN . '/success.html',
