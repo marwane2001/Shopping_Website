@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container my-5 text-center">
+        <img src="/assets/img/cart.png" alt="Order Confirmed" style="height: 200px">
+        <h1>Thanks for your order</h1>
+        <a href="{{ path('app_home') }}" class="btn btn-success">Check Out Your Order!</a>
+        {{ dump(order) }}
+    </div>
+{% endblock %}
