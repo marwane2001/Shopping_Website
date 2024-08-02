@@ -43,10 +43,10 @@ public function configureCrud(Crud $crud): Crud
             TextEditorField::new('Description')->setLabel('Description')->setHelp('Description of your new product'),
             ImageField::new('Illustration')->setLabel('Image')->setHelp('Add your image with a resolution of 600x600px')->setUploadedFileNamePattern('[year]-[month]-[day]-[contenthash].[extension]')->setBasePath('/upload-dir')->setUploadDir('/public/upload-dir')->setRequired($required),
             NumberField::new('price')->setLabel('Price duty free')->setHelp('Set a price for your product without the $ sign'),
-            choiceField::new('tva')->setLabel('Taux de TVA')->setChoices([
-                '5,5%'=>'5.5',
-                '10%'=>'10%',
-                '20%'=>'20%'
+            choiceField::new('tva')->setLabel('VAT')->setChoices([
+                '5%'=>'5',
+                '10%'=>'10',
+                '20%'=>'20'
 
             ]),
             AssociationField::new('category','associated category')
