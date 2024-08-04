@@ -1,7 +1,7 @@
 
 An Online Shopping website developed using Symfony and Bootstrap.
 <br>
-Link: https://shoppingapp.reactive-chat.tech/
+Link: https://shopping-webapp.reactive-chat.tech
 <br>
 Running the project
 
