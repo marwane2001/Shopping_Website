@@ -55,7 +55,7 @@ class Cart {
         $cart= $this->requestStack->getSession()->get('cart');
         $price = 0;
         if(!isset($cart)){
-            return $cart;
+            return $price;
         }
         foreach ($cart as $product) {
 

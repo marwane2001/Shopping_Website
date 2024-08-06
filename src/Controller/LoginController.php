@@ -21,7 +21,7 @@ class LoginController extends AbstractController
             'last_username' => $lastUsername,
         ]);
     }
-    #[Route('/deconnexion', name: 'app_logout', methods: ['GET'])]
+    #[Route('/logout', name: 'app_logout', methods: ['GET'])]
     public function logout(): never
     {
         // controller can be blank: it will never be called!

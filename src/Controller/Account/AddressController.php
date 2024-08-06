@@ -22,14 +22,14 @@ class AddressController extends AbstractController{
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/compte/addresses', name: 'app_account_addresses')]
+    #[Route('/account/addresses', name: 'app_account_addresses')]
     public function index(): Response
     {
         return $this->render('account/address/index.html.twig',
         );
     }
 
-    #[Route('/compte/address/add/{id}', name: 'app_account_address_form',defaults: ['id'=>null])]
+    #[Route('/account/address/add/{id}', name: 'app_account_address_form',defaults: ['id'=>null])]
     public function form(Request $request,$id,AdressRepository $adressRepository,Cart $cart): Response
     {
         if ($id) {
@@ -66,7 +66,7 @@ class AddressController extends AbstractController{
         );
     }
 
-    #[Route('/compte/addresses/delete/{id}', name: 'app_account_addresses_delete')]
+    #[Route('/account/addresses/delete/{id}', name: 'app_account_addresses_delete')]
     public function delete($id,AdressRepository $adressRepository): Response
     {
         $address=$adressRepository->findOneById($id);

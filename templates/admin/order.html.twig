@@ -11,12 +11,12 @@
 
     <div class="row my-4">
         <div class="col-md-6">
-            <strong>Adresse de livraison :</strong><br/>
+            <strong>Shipping Address:</strong><br/>
             {{ order.delivery|raw }}
         </div>
         <div class="col-md-6">
-            <strong>Transporteur</strong><br/>
-            <span>Name:{{ order.carrier }}</span>
+            <strong>Shipping</strong><br/>
+            <span>Name: {{ order.carrier }}</span>
         </div>
     </div>
 
@@ -38,8 +38,11 @@
         </thead>
         <tbody>
         {% for product in order.orderDetails %}
+
             <tr>
-                <td> {{ product.prodcutIllustration }} </td>
+                <td>
+                    <img src="upload-dir/{{ product.prodcutIllustration }}" height="150px" alt="Image Product dosen't exist "/>
+                    </td>
                 <td> {{ product.product }} </td>
                 <td>  {{ product.productQuantity }} </td>
                 <td> {{ product.productPrice|price }} </td>

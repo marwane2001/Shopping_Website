@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Education Platform</title>
-        <meta name="description" content="Education Platform">
+        <title>shopping Website</title>
+        <meta name="description" content="shopping Website">
 
         <!-- Ensure the CSS paths are correct and the files exist -->
         <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
@@ -21,7 +21,7 @@
     <header data-bs-theme="dark">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/">Home</a>
+                <a class="navbar-brand" href={{ path('app_home') }}>Home</a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -62,7 +62,7 @@
         {% endfor %}
     {%block body%}{% endblock %}
         <footer class="mt-5 pe-3 float-end" data-bs-theme="dark">
-            <p >&copy; 2024–2024 Education Platform </p>
+            <p >&copy; 2024–2024 Shopping-Website </p>
         </footer>
     </main>
 
