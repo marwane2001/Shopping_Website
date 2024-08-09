@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container my-5">
+        <h1>Your Orders</h1>
+
+        {% if orders is empty %}
+            <p>You have no orders.</p>
+        {% else %}
+            <div class="row">
+                {% for order in orders %}
+                    <div class="col-md-14 my-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>Order #{{ order.id }}</strong> - placed on {{ order.createdAt|date('Y-m-d H:i') }}
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Shipping Address</h5>
+                                <p class="card-text">{{ order.delivery|raw }}</p>
+
+                                <h5 class="card-title">Products</h5>
+                                <ul class="list-group list-group-flush">
+                                    {% set totalPrice = 0 %}
+                                    {% for detail in order.orderDetails %}
+                                        <li class="list-group-item">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <img src="/upload-dir/{{ detail.prodcutIllustration }}" class="img-fluid" alt="{{ detail.product }}">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <strong>{{ detail.product }}</strong>
+                                                    <span class="d-block small">Unit Price: {{ detail.productPrice|number_format(2)|price }}</span>
+                                                </div>
+                                                <div class="col-md-2 text-right">
+                                                    <span class="badge text-bg-dark">x{{ detail.productQuantity }}</span>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <strong>{{ (detail.productQuantity * detail.productPrice)|number_format(2) |price}}</strong>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        {% set totalPrice = totalPrice + (detail.productQuantity * detail.productPrice) %}
+                                    {% endfor %}
+                                </ul>
+
+                                <h5 class="card-title mt-3">Shipping Method</h5>
+                                <p class="card-text">
+                                    Carrier: {{ order.carrier }}<br>
+                                    Price: {{ order.carrierPrice|number_format(2) |price}}
+                                </p>
+
+                                <h5 class="card-title mt-3">Total</h5>
+                                <p class="card-text">{{ (totalPrice + order.carrierPrice)|number_format(2)|price }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

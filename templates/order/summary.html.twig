@@ -12,8 +12,7 @@
                 {% for product in cart %}
                     <div class="row mt-2">
                         <div class="col-md-2">
-                            <img src="/upload-dir/{{ product.productIllustration }}" class="img-fluid" alt="{{ product.object.name }}">
-                        </div>
+                            <img src="/upload-dir/{{ product.object.illustration }}" class="img-fluid" alt="{{ product.object.name }}">                        </div>
                         <div class="col-md-6">
                             <strong>{{ product.object.name }}</strong>
                             <span class="d-block small">unit Price : {{ product.object.pricewt|price }}</span>

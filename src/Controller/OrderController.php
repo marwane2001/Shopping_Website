@@ -14,22 +14,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\User;
 
-class OrderController extends AbstractController{
+class OrderController extends AbstractController
+{
     #[Route('/order/shipping', name: 'app_order')]
     public function index(): Response
     {
-        $user=$this->getUser();
+        $user = $this->getUser();
 
         if ($user === null) {
             return $this->redirectToRoute('app_login');
         }
 
         $addresses = $user->getAdresses() ?? [];
-        if (count( $addresses)==0){
+        if (count($addresses) == 0) {
             return $this->redirectToRoute('app_account_address_form');
 
         }
-
 
 
         $form = $this->createForm(OrderType::class, null, [
@@ -41,28 +41,28 @@ class OrderController extends AbstractController{
         ]);
     }
 
-    #[Route('/order/summary', name: 'app_order_summary',methods: ['POST',])]
-    public function add(Request $request,Cart $cart,EntityManagerInterface $entityManager): Response
+    #[Route('/order/summary', name: 'app_order_summary', methods: ['POST',])]
+    public function add(Request $request, Cart $cart, EntityManagerInterface $entityManager): Response
     {
-        $carts= $cart->getCart();
+        $carts = $cart->getCart();
         if ($request->getMethod() != 'POST') {
             return $this->redirectToRoute('app_cart');
         }
 
-        $form=$this->createForm(OrderType::class,null,[
+        $form = $this->createForm(OrderType::class, null, [
             'addresses' => $this->getUser()->getAdresses(),
         ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $addressObj=$form->get('addresses')->getData();
-            $address=$addressObj->getFirstname()." ".$addressObj->getLastname().'<br>';
-            $address .=$addressObj->getAddress().'<br>';
-            $address .=$addressObj->getPostal().''.$addressObj->getCity().'<br>';
-            $address .=$addressObj->getCountry().'<br>';
-            $address .=$addressObj->getPhone().'<br>';
+            $addressObj = $form->get('addresses')->getData();
+            $address = $addressObj->getFirstname() . " " . $addressObj->getLastname() . '<br>';
+            $address .= $addressObj->getAddress() . '<br>';
+            $address .= $addressObj->getPostal() . '' . $addressObj->getCity() . '<br>';
+            $address .= $addressObj->getCountry() . '<br>';
+            $address .= $addressObj->getPhone() . '<br>';
 
-            $order=new Order();
+            $order = new Order();
             $order->setUser($this->getUser());
             $order->setCreatedAt(new \DateTime('now'));
             $order->setState(1);
@@ -70,8 +70,8 @@ class OrderController extends AbstractController{
             $order->setCarrierPrice($form->get('carrier')->getData()->getPrice());
             $order->setDelivery($address);
 
-            foreach($carts as $product){
-                $orderDetail=new OrderDetail();
+            foreach ($carts as $product) {
+                $orderDetail = new OrderDetail();
                 $orderDetail->setProduct($product['object']->getName());
                 $orderDetail->setProdcutIllustration($product['object']->getIllustration());
                 $orderDetail->setProductPrice($product['object']->getPrice());
@@ -80,15 +80,34 @@ class OrderController extends AbstractController{
                 $order->addOrderDetail($orderDetail);
             }
             $entityManager->persist($order);
-         $entityManager->flush();
+            $entityManager->flush();
 
         }
 
         return $this->render('order/summary.html.twig', [
-            'choices'=>$form->getData(),
-            'order'=>$order,
-            'cart'=>$cart->getCart(),
-            'totalWt'=>$cart->getTotalWt(),
+            'choices' => $form->getData(),
+            'order' => $order,
+            'cart' => $cart->getCart(),
+            'totalWt' => $cart->getTotalWt(),
+        ]);
+    }
+
+    #[Route('/account/order', name: 'account_order')]
+    public function userOrders(EntityManagerInterface $entityManager,Cart $cart): Response
+    {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $orders = $entityManager->getRepository(Order::class)->findBy(['user' => $user]);
+
+        return $this->render('account/order/index.html.twig', [
+            'totalWt' => $cart->getTotalWt(),
+            'orders' => $orders,
         ]);
     }
 }
+
+
+
