@@ -3,6 +3,7 @@
 {% block body %}
     <div class="container my-5">
         <h1>Your Orders</h1>
+        <a href="{{ path('app_account') }}"  class="btn btn-light">Back</a>
 
         {% if orders is empty %}
             <p>You have no orders.</p>
@@ -12,6 +13,8 @@
                     <div class="col-md-14 my-4">
                         <div class="card">
                             <div class="card-header">
+
+                                <a href="{{ path('app_invoice', { 'id_order': order.id }) }}" class="btn btn-secondary" target="_blank">Invoice</a>
                                 <strong>Order #{{ order.id }}</strong> - placed on {{ order.createdAt|date('Y-m-d H:i') }}
                             </div>
                             <div class="card-body">

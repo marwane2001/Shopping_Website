@@ -1,8 +1,8 @@
 {% extends '@!EasyAdmin/layout.html.twig' %}
 
 {% block main %}
-
-    <h3>Order n°{{ order.id }}</h3>
+    <a href="{{ path('app_invoice_admin', { 'id_order': order.id }) }}" class="btn btn-secondary" target="_blank">Invoice</a>
+    <h3 class="mt-2">Order n°{{ order.id }}</h3>
     {{ include('admin/state.html.twig', { field : { 'value' : order.state } } ) }}
     <br/>
     <span>Order Date : {{ order.createdAt|date('d/m/Y') }}</span>

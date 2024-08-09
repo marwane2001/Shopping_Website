@@ -3,10 +3,21 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Invoice</title>
     <style>
         .text-center {
             text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+        table{
+            border-collapse: collapse;
+        }
+        table td,table th{
+            padding: 0.5rem ;
+            border-top: 1px solid gray;
         }
 
         body {
@@ -16,20 +27,66 @@
 </head>
 <body>
 <div class="text-center">
-    <h3>Facture commande n°{{ order.id }}</h3>
+    <img style="" src="data:" alt="">
+    <h3>Order n°{{ order.id }}</h3>
+    <table style="width: 100%; border-bottom: 1px solid gray;">
+        <tr>
+            <td style="width: 49%;">
+                <strong>shoppingapp</strong><br>
+                My Address,<br>
+                Zip, City, Morocco.<br>
+                email@shoppingapp.com<br>
+                06 06 06 06 06
+            </td>
+            <td class="text-right">
+                {{ order.delivery|raw }}
+            </td>
+        </tr>
+    </table>
 </div>
-<table>
-    <tr>
-        <td>
-            <strong>La Boutique Française</strong><br>
-            mon adresse,<br>
-            code postal, ville. France.<br>
-            email@laboutiquefrancaise.com
-        </td>
-        <td>DESTINATAIRE</td>
-    </tr>
-</table>
+<h5>Order details : <span class="badge text-bg-secondary"></span></h5>
 
-<h1>Example heading <span class="badge text-bg-secondary">New</span></h1>
+<br/>
+<table style="width: 100%">
+    <thead>
+    <tr >
+        <th scope="col" style="text-align: left" >Product Name</th>
+        <th scope="col">Qty</th>
+        <th scope="col">Unit Price</th>
+        <th scope="col">VAT</th>
+        <th scope="col" >Total price all inclusive</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for product in order.orderDetails %}
+        <tr>
+
+            <td >{{ product.product }}</td>
+            <td>{{ product.productQuantity }}</td>
+            <td>{{ product.productPrice|price }}</td>
+            <td>{{ product.productTva }}%</td>
+            {% set coeff = 1 + (product.productTva / 100) %}
+            <td>{{ ((product.productPrice * coeff) * product.productQuantity)|price }}</td>
+            <td></td>
+        </tr>
+    {% endfor %}
+    <br>
+    <tr>
+
+        <td>Carrier: {{ order.carrier }}</td>
+        <td>Qty :1</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td >Carrier Price :{{ order.carrierPrice|price }}</td>
+    </tr>
+    </tbody>
+</table>
+<div style="margin-top: 10px" class="text-right">
+    <strong>Total No Taxes Included :</strong> {{ (order.totalWt - order.totalTva)|price }}<br/>
+    <strong>Total VAT :</strong> {{ order.totalTva|price }}<br/>
+    <strong>Total price all inclusive :</strong> {{ order.totalWt|price }}
+</div>
+
 </body>
 </html>
