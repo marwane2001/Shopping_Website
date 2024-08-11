@@ -3,7 +3,7 @@
 {% block body %}
     <div class="container my-5">
         <h1>Your Orders</h1>
-        <a href="{{ path('app_account') }}"  class="btn btn-light">Back</a>
+        <a href="{{ path('app_account') }}"  class="btn btn-info">Back</a>
 
         {% if orders is empty %}
             <p>You have no orders.</p>
@@ -16,6 +16,7 @@
 
                                 <a href="{{ path('app_invoice', { 'id_order': order.id }) }}" class="btn btn-secondary" target="_blank">Invoice</a>
                                 <strong>Order #{{ order.id }}</strong> - placed on {{ order.createdAt|date('Y-m-d H:i') }}
+                                {{ include('admin/state.html.twig', { field : { 'value' : order.state } } ) }}
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">Shipping Address</h5>
@@ -53,7 +54,13 @@
                                 </p>
 
                                 <h5 class="card-title mt-3">Total</h5>
-                                <p class="card-text">{{ (totalPrice + order.carrierPrice)|number_format(2)|price }}</p>
+                                <div class="text-right fs-4">
+                                <strong>Total taxes Not Inc : </strong>{{ (order.totalWt-order.totalTva)|price }}
+                                <br>
+                                <strong>Total VAT : </strong>{{ order.totalTva|price }}
+                                <br>
+                                <strong>Total taxes Inc : </strong>{{ order.totalWt|price }}
+                            </div>
                             </div>
                         </div>
                     </div>
