@@ -1,53 +1,62 @@
 {% extends 'base.html.twig' %}
 
-
-
 {% block body %}
     <div class="container my-5">
         <h1>My Cart</h1>
 
         <div class="row">
             <div class="col-md-8">
-                {% for product in cart %}
-                    <div class="row mt-2">
-                        <div class="col-md-2">
-                            <img src="/upload-dir/{{ product.object.illustration }}" class="img-fluid" alt="{{ product.object.name }}">
+             
+
+                {% if cart is not empty %}
+                    {% for product in cart %}
+                        <div class="row mt-2">
+                            <div class="col-md-2">
+                                <img src="/upload-dir/{{ product.object.illustration }}" class="img-fluid" alt="{{ product.object.name }}">
+                            </div>
+                            <div class="col-md-6">
+                                <strong>{{ product.object.name }}</strong>
+                                <span class="d-block small">unit Price : {{ product.object.pricewt|price }}</span>
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <a href="{{ path('app_cart_decrease',{id:product.object.id}) }}">-</a>  <span class="badge text-bg-dark">x{{ product.qty }}</span><a href="{{ path('app_cart_add',{id:product.object.id}) }}">+</a>
+                            </div>
+                            <div class="col-md-2">
+                                <strong>{{ (product.qty * product.object.pricewt)|price }}</strong>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <strong>{{ product.object.name }}</strong>
-                            <span class="d-block small">unit Price : {{ product.object.pricewt|price }}</span>
-                        </div>
-                        <div class="col-md-2 text-right">
-                          <a href="{{ path('app_cart_decrease',{id:product.object.id}) }}">-</a>  <span class="badge text-bg-dark">x{{ product.qty }}</span><a href="{{ path('app_cart_add',{id:product.object.id}) }}">+</a>
-                        </div>
-                        <div class="col-md-2">
-                            <strong>{{ (product.qty * product.object.pricewt)|price }}</strong>
-                        </div>
-                    </div>
-                {% endfor %}
-                <a href="{{  path('app_cart_remove') }}" class="small d-block mt-3"><button class="btn btn-danger">
+                    {% endfor %}
+                    <a href="{{  path('app_cart_remove') }}" class="small d-block mt-3"><button class="btn btn-danger">
                             Clear the Cart
-                    </button></a>
+                        </button></a>
+                {% else %}
+                    <p>Your cart is empty.</p>
+                {% endif %}
             </div>
 
             <div class="col-md-4">
-                <div class="bg-light p-3" >
-                    <div class="d-flex justify-content-between"> <span>
+                <div class="bg-light p-3">
+                    <div class="d-flex justify-content-between">
+                        <span>
                             <span class="fw-bold">Total Products : </span>
                             <span>{{ fullCartQuantity  }}</span>
-                        </span></div>
-                    <div class="d-flex justify-content-between mt-3"> <span>
+                        </span>
+                    </div>
+                    <div class="d-flex justify-content-between mt-3">
+                        <span>
                             <span class="fw-bold">Total Price (Taxes inc): </span>
                             <span>{{ totalWt|price }}</span>
-                        </span></div>
-                    <div>
-                         <a class="btn btn-success w-100 mt-3 " href="{{ path('app_order') }}">Complete your purchase</a>
+                        </span>
                     </div>
-
+                    <div>
+                        {% if cart is not empty %}
+                            <a class="btn btn-success w-100 mt-3 " href="{{ path('app_order') }}">Complete your purchase</a>
+                        {% else %}
+                            <button class="btn btn-secondary w-100 mt-3" disabled>Complete your purchase</button>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
-
 {% endblock %}

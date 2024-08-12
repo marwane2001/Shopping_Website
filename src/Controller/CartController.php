@@ -64,6 +64,7 @@ class CartController extends AbstractController
             'success', "The cart has been cleared successfully!"
         );
 
-        return $this->redirectToRoute('app_login');
+        return $this->redirectToRoute('app_cart_remove');
     }
+
 }

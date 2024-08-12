@@ -1,150 +1,152 @@
-    <!doctype html>
-    {% block  show_footer%}true{% endblock %}
-    <html lang="en" data-bs-theme="auto">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Softup</title>
-        <meta name="description" content="shopping Website">
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Softup</title>
+    <meta name="description" content="shopping Website">
 
-        <!-- Ensure the CSS paths are correct and the files exist -->
-        <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-        <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('assets/css/carousel.css') }}" rel="stylesheet">
-        <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
+    <!-- Ensure the CSS paths are correct and the files exist -->
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/carousel.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
 
-        <!-- External script -->
-        <script src="https://unpkg.com/feather-icons"></script>
-    </head>
+    <!-- External script -->
+    <script src="https://unpkg.com/feather-icons"></script>
 
-    <body>
+    <style>
+        /* Flexbox Layout */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
 
-    <header data-bs-theme="dark">
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: rgba(35, 47, 62, 1);">
-            <div class="container-fluid">
-                <a class="navbar-brand" href={{ path('app_home') }}>
+        main {
+            flex: 1;
+        }
+
+        footer {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+<header data-bs-theme="dark">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: rgb(20, 47, 62);">
+        <div class="container-fluid">
+            <a class="navbar-brand" href={{ path('app_home') }}>
                 <img alt="" src="{{ asset('/upload-dir/website-src/main-rm.png') }}" style="height: 50px; width: 50px">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                        {% for category in allcategories %}
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    {% for category in allcategories %}
                         <li class="nav-item">
                             <a class="nav-link  fs8" href={{ path('app_category',{slug:category.slug}) }}>{{ category.name }}</a>
                         </li>
-                        {% endfor %}
-
-                    </ul>
-                    <div class="speed-menu">
-
-                        {% if app.user %}
-                            <a href={{ path('app_account') }}><i data-feather="user"></i></a>
-                            <a href={{ path('app_logout') }}><i data-feather="log-out"></i></a>
-                            {% else %}
-                                <a href="{{ path('app_login') }}"><i data-feather="user"></i></a>
-                        {% endif %}
-                        <a href={{ path('app_cart') }}><i data-feather="shopping-cart"></i>
+                    {% endfor %}
+                </ul>
+                <div class="speed-menu">
+                    {% if app.user %}
+                        <a href={{ path('app_account') }}><i data-feather="user"></i></a>
+                        <a href={{ path('app_logout') }}><i data-feather="log-out"></i></a>
+                    {% else %}
+                        <a href="{{ path('app_login') }}"><i data-feather="user"></i></a>
+                    {% endif %}
+{#                    {%if fullCartQuantity==0 %}#}
+                    <a href={{ path('app_cart') }}><i data-feather="shopping-cart"></i>
                         <span class="badge text-bg-light">{{ fullCartQuantity }}</span>
-                        </a>
-                    </div>
+                    </a>
+{#                    {% endif %}#}
+
+
                 </div>
             </div>
-        </nav>
-    </header>
-
-    <main>
-        {% for label, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="alert alert-{{ label }} mt-4 container">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endfor %}
-    {%block body%}{% endblock %}
-
-
-    </main>
-
-
-        <footer id="footer" class="overflow-hidden">
-            {% if block('show_footer') is defined and block('show_footer') %}
-            {% block footer %}
-      <div class="container">
-        <div class="row">
-          <div class="footer-top-area">
-            <div class="row d-flex flex-wrap justify-content-between">
-              <div class="col-lg-3 col-sm-6 pb-3">
-                <div class="footer-menu">
-                  <img src="{{ asset('/upload-dir/website-src/main-rm.png') }}" alt="logo" style="height: 100px;width: 100px" class="mb-4">
-                  <p>Nisi, purus vitae, ultrices nunc. Sit ac sit suscipit hendrerit. Gravida massa volutpat aenean odio erat nullam fringilla.</p>
-                    <div class="social-links">
-                        <ul class="d-flex list-unstyled" style="gap: 10px;">
-                            <li>
-
-                                <a href="#"><i data-feather="facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i data-feather="instagram"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i data-feather="twitter"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>
-              </div>
-
-
-              <div class="col-lg-3 col-sm-6  mt-5">
-                <div class="footer-menu contact-item">
-                  <h5 class="widget-title text-uppercase pb-2">Contact Us</h5>
-                  <p>Do you have any queries or suggestions? <a href="mailto:"><x></x>@gmail.com</a>
-                  </p>
-                  <p>If you need support? Just give us a call. <a href="">+55 111 222 333 44</a>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-      <hr>
-            {% endblock %}
-            {% endif %}
-    </footer>
+    </nav>
+</header>
 
-    <div class="container mt-4">
-        <div class="row d-flex flex-wrap justify-content-between align-items-center">
-            <div class="col-md-4 col-sm-12 text-center text-md-start mb-2 mb-md-0">
-                <div class="Shipping d-flex justify-content-center justify-content-md-start">
-                    <p>We ship with:</p>
-                    <div class="card-wrap ps-2">
-                        <img src="{{ asset('upload-dir/website-src/dhl.png') }}" alt="dhl">
-                    </div>
+<main>
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} mt-4 container">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {%block body%}{% endblock %}
+</main>
+
+
+
+<div class="container" style="margin-top: 200px">
+    <div class="row d-flex flex-wrap justify-content-between align-items-center">
+        <div class="col-md-4 col-sm-12 text-center text-md-start mb-2 mb-md-0">
+            <div class="Shipping d-flex justify-content-center justify-content-md-start">
+                <p>We ship with:</p>
+                <div class="card-wrap ps-2">
+                    <img src="{{ asset('upload-dir/website-src/dhl.png') }}" alt="dhl">
                 </div>
             </div>
-            <div class="col-md-4 col-sm-12 text-center mb-2 mb-md-0">
-                <div class="payment-method d-flex justify-content-center">
-                    <p>Payment options:</p>
-                    <div class="card-wrap ps-2">
-                        <img src="{{ asset('upload-dir/website-src/visa.jpg') }}" alt="visa">
-                        <img src="{{ asset('upload-dir/website-src/mastercard.jpg') }}" alt="mastercard">
-                        <img src="{{ asset('upload-dir/website-src/paypal.jpg') }}" alt="paypal">
-                    </div>
+        </div>
+        <div class="col-md-4 col-sm-12 text-center mb-2 mb-md-0">
+            <div class="payment-method d-flex justify-content-center">
+                <p>Payment options:</p>
+                <div class="card-wrap ps-2">
+                    <img src="{{ asset('upload-dir/website-src/visa.jpg') }}" alt="visa">
+                    <img src="{{ asset('upload-dir/website-src/mastercard.jpg') }}" alt="mastercard">
+                    <img src="{{ asset('upload-dir/website-src/paypal.jpg') }}" alt="paypal">
                 </div>
             </div>
-            <div class="col-md-4 col-sm-12 text-center text-md-end">
-                <div class="copyright">
-                    <p>© Copyright 2024 ShoppingWebsite.</p>
+        </div>
+        <div class="col-md-4 col-sm-12 text-center text-md-end">
+            <div class="copyright">
+                <p>© Copyright 2024 ShoppingWebsite.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+
+<footer id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-top-area">
+                <div class="row d-flex flex-wrap justify-content-between">
+                    <div class="col-lg-3 col-sm-6 pb-3">
+                        <div class="footer-menu">
+                            <img src="{{ asset('/upload-dir/website-src/main-rm.png') }}" alt="logo" style="height: 100px;width: 100px" class="mb-4">
+                            <p>Nisi, purus vitae, ultrices nunc. Sit ac sit suscipit hendrerit. Gravida massa volutpat aenean odio erat nullam fringilla.</p>
+                            <div class="social-links">
+                                <ul class="d-flex list-unstyled" style="gap: 10px;">
+                                    <li><a href="#"><i data-feather="facebook"></i></a></li>
+                                    <li><a href="#"><i data-feather="instagram"></i></a></li>
+                                    <li><a href="#"><i data-feather="twitter"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 mt-5">
+                        <div class="footer-menu contact-item">
+                            <h5 class="widget-title text-uppercase pb-2">Contact Us</h5>
+                            <p>Do you have any queries or suggestions? <a href="mailto:"><x></x>@gmail.com</a></p>
+                            <p>If you need support? Just give us a call. <a href="">+55 111 222 333 44</a></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</footer>
 
-    <script src="/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/js/global.js"></script>
-    </body>
-    </html>
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/global.js"></script>
+</body>
+</html>

@@ -64,12 +64,12 @@ class Cart {
         return $price;
     }
 
-
+    public function getCart() {
+        return $this->requestStack->getSession()->get('cart');
+    }
     public function remove() {
         return $this -> requestStack -> getSession() -> remove('cart');
     }
 
-    public function getCart() {
-        return $this->requestStack->getSession()->get('cart');
-    }
+
 }
