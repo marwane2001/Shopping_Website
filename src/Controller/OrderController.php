@@ -92,21 +92,21 @@ class OrderController extends AbstractController
         ]);
     }
 
-    #[Route('/account/order', name: 'account_order')]
-    public function userOrders(EntityManagerInterface $entityManager,Cart $cart): Response
-    {
-        $user = $this->getUser();
-        if (!$user) {
-            return $this->redirectToRoute('app_login');
-        }
-
-        $orders = $entityManager->getRepository(Order::class)->findBy(['user' => $user]);
-
-        return $this->render('account/order/index.html.twig', [
-            'totalWt' => $cart->getTotalWt(),
-            'orders' => $orders,
-        ]);
-    }
+//    #[Route('/account/order', name: 'account_order')]
+//    public function userOrders(EntityManagerInterface $entityManager,Cart $cart): Response
+//    {
+//        $user = $this->getUser();
+//        if (!$user) {
+//            return $this->redirectToRoute('app_login');
+//        }
+//
+//        $orders = $entityManager->getRepository(Order::class)->findBy(['user' => $user]);
+//
+//        return $this->render('account/order/index.html.twig', [
+//            'totalWt' => $cart->getTotalWt(),
+//            'orders' => $orders,
+//        ]);
+//    }
 }
 
 

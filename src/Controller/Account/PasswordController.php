@@ -18,7 +18,7 @@ class PasswordController extends AbstractController{
     {
         $this->entityManager = $entityManager;
     }
-    #[Route('/compte/modifier-mdp', name: 'app_account_modify_pwd')]
+    #[Route('/account/change-password', name: 'app_account_modify_pwd')]
     public function index(Request $request,UserPasswordHasherInterface $passwordHasher): Response
 
     {
@@ -31,7 +31,7 @@ class PasswordController extends AbstractController{
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
             $this->addFlash(
-                'success',"votre mot de passe est correctement mis a jour"
+                'success',"Your Password Has Been Changed,Successfully"
             );
         }
         return $this->render('account/password/index.html.twig',[
