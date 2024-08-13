@@ -17,11 +17,14 @@
 
     <style>
         /* Flexbox Layout */
-        html, body {
+        body {
             height: 100%;
             margin: 0;
             display: flex;
             flex-direction: column;
+            background-color: #fff;
+            color: #000;
+
         }
 
         main {
@@ -31,7 +34,45 @@
         footer {
             width: 100%;
         }
+        .dark-mode {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .dark-mode .navbar {
+            background-color: #121212;
+        }
     </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeToggleButton = document.getElementById('theme-toggle');
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+
+            // Check the initial theme from local storage
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme) {
+                document.body.classList.add(currentTheme);
+                if (currentTheme === 'dark-mode') {
+                    moonIcon.style.display = 'inline';
+                    sunIcon.style.display = 'none';
+                } else {
+                    moonIcon.style.display = 'none';
+                    sunIcon.style.display = 'inline';
+                }
+            }
+
+            themeToggleButton.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                localStorage.setItem('theme', isDarkMode ? 'dark-mode' : 'light-mode');
+                moonIcon.style.display = isDarkMode ? 'inline' : 'none';
+                sunIcon.style.display = isDarkMode ? 'none' : 'inline';
+            });
+        });
+
+    </script>
 </head>
 
 <body>
@@ -45,6 +86,51 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <button id="darkModeToggle" class="btn btn-outline-light" type="button">
+                Dark Mode
+            </button>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: rgb(20, 47, 62);">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="{{ path('app_home') }}">
+                        <img alt="" src="{{ asset('/upload-dir/website-src/main-rm.png') }}" style="height: 50px; width: 50px">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                            {% for category in allcategories %}
+                                <li class="nav-item">
+                                    <a class="nav-link fs8" href="{{ path('app_category', {slug: category.slug}) }}">{{ category.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <div class="speed-menu">
+                            {% if app.user %}
+                                <a href="{{ path('app_account') }}"><i data-feather="user"></i></a>
+                                <a href="{{ path('app_logout') }}"><i data-feather="log-out"></i></a>
+                            {% else %}
+                                <a href="{{ path('app_login') }}"><i data-feather="user"></i></a>
+                            {% endif %}
+                            <a href="{{ path('app_cart') }}"><i data-feather="shopping-cart"></i>
+                                <span class="badge text-bg-light">{{ fullCartQuantity }}</span>
+                            </a>
+
+                            <!-- Dark/Light Mode Toggle Button -->
+                            <button id="theme-toggle" class="btn btn-outline-light">
+                                <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-sun" viewBox="0 0 16 16">
+                                    <path d="M8 4.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5zM8 11.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5zM4.5 8a.5.5 0 0 1 .5.5h1a.5.5 0 0 1 0-1h-1a.5.5 0 0 1-.5.5zM10.5 8a.5.5 0 0 1 .5.5h1a.5.5 0 0 1 0-1h-1a.5.5 0 0 1-.5.5zM7.071 5.657a.5.5 0 0 1 .707.707l-.707-.707a.5.5 0 0 1 .707-.707zM7.071 10.929a.5.5 0 0 1 .707.707l-.707-.707a.5.5 0 0 1 .707-.707zM4.93 5.657a.5.5 0 0 1 .707-.707L5.93 6.07a.5.5 0 0 1-.707.707zM4.93 10.93a.5.5 0 0 1 .707-.707L5.93 11.07a.5.5 0 0 1-.707-.707zM8 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1z"/>
+                                </svg>
+                                <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-moon" viewBox="0 0 16 16" style="display: none;">
+                                    <path d="M9.049 14.84A6.978 6.978 0 0 1 8 14c-3.866 0-7 3.134-7 7s3.134 7 7 7c3.583 0 6.577-2.806 6.941-6.397-.618-.32-1.238-.559-1.879-.721C12.212 13.172 10.308 14 8 14c-1.662 0-3.245-.628-4.465-1.756.357-.639.587-1.319.645-2.029C4.166 10.75 6.073 12 8 12c.963 0 1.883-.18 2.717-.518-.693-.54-1.439-1.004-2.257-1.442-.451-.232-.892-.475-1.343-.734.424-.637.713-1.381.805-2.161.527-.031 1.058-.074 1.586-.126.267-.682.547-1.348.89-2.016.095.053.194.105.294.154C12.215 6.762 10.291 5.28 8 5c-1.555 0-3.064.448-4.356 1.216-.84-.275-1.768-.435-2.724-.435C1.345 5.781 0 7.08 0 8.5c0 .278.03.549.077.817-.229.005-.458.007-.687.007C0 9.322 0 9.688 0 10.062c0 .366.049.726.137 1.073C.591 11.485.658 11.728.736 11.969c.575 1.577 1.785 2.75 3.269 2.75 1.742 0 3.331-.76 4.483-1.963.597.451 1.219.887 1.846 1.254C8.624 15.07 8.311 15 8 15c-2.897 0-5.569-1.682-6.704-4.119a.75.75 0 0 1 .104-.97.75.75 0 0 1 .969-.105c1.15 1.588 2.765 2.514 4.556 2.514 1.793 0 3.314-.705 4.514-1.77-.24.375-.484.749-.74 1.117-.293.418-.596.826-.901 1.233a.75.75 0 0 1-.847.276z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     {% for category in allcategories %}

@@ -21,33 +21,66 @@
             border-top: 1px solid #d3d3d3;
             margin-top: -3px; /* Adjust this value if needed to align with the underline */
         }
+
         @media (max-width: 768px) {
-            #buttons {
-                margin-bottom:200px;
-            }
-            #banner{
+            #banner {
                 height: 100%;
                 object-fit: cover;
             }
+
+            .row-cols-md-5 > .col {
+                flex: 0 0 48%;
+                max-width: 48%;
+            }
+
+
             .card-img-top {
-                width: 50%;
-                height: auto;
+                width: 100%;
+                height: 150px;
+                object-fit: cover;
             }
 
             .h-100 {
                 height: 100% !important;
-                width: 282px;
-                margin-left: 14px;
+                width: 170px;
             }
 
+            .card-body {
+                padding: 0.75rem;
+            }
+
+            .card-text {
+                font-size: 0.9rem;
+            }
         }
+
 
         .card-img-top {
             width: 100%;
             height: auto;
         }
 
+        @media (min-width: 768px) and (max-width: 991px) {
+            .row-cols-2 > .col {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
 
+            .row-cols-md-3 > .col {
+                flex: 0 0 33.333%;
+                max-width: 33.333%;
+            }
+
+            .card-img-top {
+                height: 200px;
+                object-fit: cover;
+            }
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: auto;
+        }
     </style>
     <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -102,42 +135,42 @@
             </div>
         </div>
         <div class="container mt-3 mb-4">
-            <div class="row row-cols-1 row-cols-md-5 g-4">
+            <div class="row row-cols-2 row-cols-md-5 g-4">
                 <div class="col">
-                    <div class="card h-100">
-                        <img src="{{ asset('upload-dir/2024-08-11-cbf1a5ad76a1a7f5f881e018fea06a5bc06c5880.jpg') }}"    class="card-img-top" alt="Samsung Galaxy Buds3">
+                    <div class="card" style="height: 100%">
+                        <img src="/upload-dir/2024-08-11-cbf1a5ad76a1a7f5f881e018fea06a5bc06c5880.jpg" class="card-img-top" alt="Samsung Galaxy Buds3">
                         <div class="card-body">
                             <p class="card-text">iBUYPOWER - Y40 Gaming Desktop PC - Intel Core i7 14700F - NVIDIA GeForce RTX 4070 12GB - 32GB DDR5 RAM - 2TB NVMe - Black</p>
                         </div>
                     </div>
                 </div>
                 <div class="col">
-                    <div class="card h-100">
-                        <img src="{{ asset('upload-dir/2024-08-11-cbf1a5ad76a1a7f5f881e018fea06a5bc06c5880.jpg') }}"    class="card-img-top" alt="Samsung Galaxy Buds3">
+                    <div class="card" style="height: 100%">
+                        <img src="/upload-dir/2024-08-11-cbf1a5ad76a1a7f5f881e018fea06a5bc06c5880.jpg" class="card-img-top" alt="Samsung Galaxy Buds3">
                         <div class="card-body">
                             <p class="card-text">OSP Home Furnishings - Mid-Back Office Chair - Gray</p>
                         </div>
                     </div>
                 </div>
                 <div class="col">
-                    <div class="card h-100">
-                        <img src="{{ asset('upload-dir/2024-08-11-cbf1a5ad76a1a7f5f881e018fea06a5bc06c5880.jpg') }}"    class="card-img-top" alt="Samsung Galaxy Buds3">
+                    <div class="card" style="height: 100%">
+                        <img src="/upload-dir/2024-08-11-cbf1a5ad76a1a7f5f881e018fea06a5bc06c5880.jpg" class="card-img-top" alt="Samsung Galaxy Buds3">
                         <div class="card-body">
                             <p class="card-text">Microsoft - Xbox Wireless Controller for Xbox Series X</p>
                         </div>
                     </div>
                 </div>
                 <div class="col">
-                    <div class="card h-100">
-                        <img src="{{ asset('upload-dir/2024-08-11-cbf1a5ad76a1a7f5f881e018fea06a5bc06c5880.jpg') }}"    class="card-img-top" alt="Samsung Galaxy Buds3">
+                    <div class="card" style="height: 100%">
+                        <img src="/upload-dir/2024-08-11-cbf1a5ad76a1a7f5f881e018fea06a5bc06c5880.jpg" class="card-img-top" alt="Samsung Galaxy Buds3">
                         <div class="card-body">
                             <p class="card-text">Samsung - Galaxy Watch Ultra Titanium Smartwatch 47mm LTE</p>
                         </div>
                     </div>
                 </div>
                 <div class="col">
-                    <div class="card h-100">
-                        <img src="{{ asset('upload-dir/2024-08-11-cbf1a5ad76a1a7f5f881e018fea06a5bc06c5880.jpg') }}"    class="card-img-top" alt="Samsung Galaxy Buds3">
+                    <div class="card" style="height: 100%">
+                        <img src="/upload-dir/2024-08-11-cbf1a5ad76a1a7f5f881e018fea06a5bc06c5880.jpg" class="card-img-top" alt="Samsung Galaxy Buds3">
                         <div class="card-body">
                             <p class="card-text">LEGO - City Yellow Construction Excavator Toy Digger 60420</p>
                         </div>
