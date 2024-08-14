@@ -1,13 +1,24 @@
 {% extends '@!EasyAdmin/layout.html.twig' %}
 
 {% block main %}
-    <a href="{{ path('app_invoice_admin', { 'id_order': order.id }) }}" class="btn btn-secondary" target="_blank">Invoice</a>
-    <h3 class="mt-2">Order n°{{ order.id }}</h3>
+
+    <h2>Take Action on the Order</h2>
+    {% if order.state != 1 %}
+        <a href="{{current_url}}&state=3" class="{% if order.state == 3 %}d-none{% endif %} btn btn-light">Order in Preparation</a>
+        <a href="{{current_url}}&state=4" class="{% if order.state == 4 %}d-none{% endif %} btn btn-light">Order Shipped</a>
+        <a href="{{current_url}}&state=5" class="{% if order.state == 5 %}d-none{% endif %} btn btn-light">Order Cancelled</a>
+    {% else %}
+        <p>You cannot take action on an order that has not yet been paid.</p>
+    {% endif %}
+
+    <hr>
+    <a target="_blank" href="{{ path('app_invoice_admin', { id_order : order.id }) }}" class="btn btn-light btn-sm">View/Print Invoice</a>
+    <h3 class="mt-2">Order No. {{ order.id }}</h3>
     {{ include('admin/state.html.twig', { field : { 'value' : order.state } } ) }}
     <br/>
-    <span>Order Date : {{ order.createdAt|date('d/m/Y') }}</span>
-    <br>
-    <span>Stripe Session Id : {{ order.stripeSessionId }}</span>
+    <br/>
+    <span>Placed on: {{ order.createdAt|date('d/m/Y') }}</span><br/>
+    <span>Stripe Session Id: {{ order.stripeSessionId }}</span>
 
     <div class="row my-4">
         <div class="col-md-6">
@@ -15,43 +26,39 @@
             {{ order.delivery|raw }}
         </div>
         <div class="col-md-6">
-            <strong>Shipping</strong><br/>
-            <span>Name: {{ order.carrier }}</span>
+            <strong>Carrier</strong><br/>
+            {{ order.carrier }}
         </div>
     </div>
 
-    <strong>Contenu de la commande :</strong><br/>
+    <strong>Order Content:</strong><br/>
 
-
-    {% for product in order.orderDetails %}
-    {% endfor %}
     <table class="table">
         <thead>
         <tr>
             <th scope="col">Illustration</th>
-            <th scope="col">Name of product</th>
+            <th scope="col">Product Name</th>
             <th scope="col">Quantity</th>
-            <th scope="col">Unit Pricing</th>
+            <th scope="col">Unit Price (Excl. Tax)</th>
             <th scope="col">VAT</th>
-            <th scope="col">Price Taxes Inc</th>
+            <th scope="col">Total (Incl. Tax)</th>
         </tr>
         </thead>
         <tbody>
         {% for product in order.orderDetails %}
-
             <tr>
                 <td>
-                    <img src="upload-dir/{{ product.prodcutIllustration }}" height="150px" alt="Image Product dosen't exist "/>
-                    </td>
-                <td> {{ product.product }} </td>
-                <td>  {{ product.productQuantity }} </td>
-                <td> {{ product.productPrice|price }} </td>
-                <td> {{ product.productTva }} </td>
-                  {% set coeff= 1+(product.productPrice/100) %}
-                <td> {{ ((product.productPrice * coeff)*product.productQuantity)|price }} </td>
+                    <img src="/upload-dir/{{ product.prodcutIllustration }}" width="100px" alt="">
+                </td>
+                <td>{{ product.product }}</td>
+                <td>{{ product.productQuantity }}</td>
+                <td>{{ product.productPrice|price }}</td>
+                <td>{{ product.productTva }}%</td>
+                {% set coeff = 1 + (product.productTva / 100) %}
 
+                <td>{{ ((product.productPrice * coeff) * product.productQuantity)|price }}</td>
             </tr>
-        {%endfor%}
+        {% endfor %}
         <tr>
             <td></td>
             <td>{{ order.carrier }}</td>
@@ -62,12 +69,11 @@
         </tr>
         </tbody>
     </table>
-    <div class="text-right fs-4">
-        <strong>Total taxes Not Inc. </strong>{{ (order.totalWt-order.totalTva)|price }}
-        <br>
-        <strong>Total VAT</strong>{{ order.totalTva|price }}
-        <br>
-        <strong>Total taxes Inc: </strong>{{ order.totalWt|price }}
+
+    <div class="text-right fs-5">
+        <strong>Total (Excl. Tax): </strong> {{ (order.totalWt - order.totalTva)|price }}<br/>
+        <strong>Total VAT: </strong> {{ order.totalTva|price }}<br/>
+        <strong>Total (Incl. Tax): </strong> {{ order.totalWt|price }}
     </div>
 
 {% endblock %}
