@@ -3,11 +3,7 @@
         transition: background-color 0.3s, color 0.3s;
     }
 
-    .nav-link:hover {
-        background-color: #007bff;
-        color: #fff;
-        border-radius: 0.25rem;
-    }
+
 
     .nav-link .icon {
         width: 20px; /* Adjust size as needed */
@@ -42,14 +38,14 @@
             My Addresses
         </a>
     </li>
-    {#    <li class="nav-item">#}
-    {#        <a class="nav-link" href="{{ path('app_account_wishlist') }}">#}
-    {#            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="bi bi-heart">#}
-    {#                <path d="M4.5 0C2.014 0 0 2.014 0 4.5S2.014 9 4.5 9c.91 0 1.756-.374 2.4-.984.644.61 1.49.984 2.4.984 2.486 0 4.5-2.014 4.5-4.5S12.486 0 10 0c-1.156 0-2.268.43-3.143 1.143C6.268.43 5.156 0 4.5 0zM8 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zM3.5 5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>#}
-    {#            </svg>#}
-    {#            My Wishlist#}
-    {#        </a>#}
-    {#    </li>#}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_account_wishlist') }}">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="bi bi-heart">
+                    <path d="M4.5 0C2.014 0 0 2.014 0 4.5S2.014 9 4.5 9c.91 0 1.756-.374 2.4-.984.644.61 1.49.984 2.4.984 2.486 0 4.5-2.014 4.5-4.5S12.486 0 10 0c-1.156 0-2.268.43-3.143 1.143C6.268.43 5.156 0 4.5 0zM8 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zM3.5 5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+                </svg>
+                My Wishlist
+            </a>
+        </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ path('app_account_modify_pwd') }}">
             <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="bi bi-lock">

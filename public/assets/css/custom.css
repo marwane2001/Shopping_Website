@@ -90,3 +90,15 @@
     max-width: 800px;
     margin: 0 auto;
 }
+
+
+.wishlist-icon svg {
+    background-color: lightgrey;
+    color: black;
+    padding: 9px;
+    border-radius: 50%;
+    height: 39px;
+    width: 39px;
+}
+
+

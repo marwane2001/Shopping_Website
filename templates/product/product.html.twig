@@ -1,20 +1,62 @@
 {% extends 'base.html.twig' %}
 
-
 {% block body %}
+
+    <style>
+        .wishlist-icon-active svg {
+            background-color: #ceeddf;
+            color: #0b6b3e;
+            padding: 9px;
+            border-radius: 50%;
+            height: 39px;
+            width: 39px;
+
+        }
+
+
+
+    </style>
     <div class="container my-5">
+
         <div class="row">
             <div class="col-md-6">
-                <img src="/upload-dir/{{ product.illustration }}" class="img-fluid" alt="{{ product.name }}">
+                <img src="/upload-dir/{{ product.illustration }}" class="img-fluid rounded " alt="{{ product.name }}" style="height: 400px;width: 700px">
             </div>
             <div class="col-md-6">
-                <small><i><a href="{{ path('app_category', { slug : product.category.slug }) }}">{{ product.category.name }}</a> > {{ product.name }}</i></small>
+                <small><i><a href="{{ path('app_category', { slug : product.category.slug } ) }}">{{ product.category.name }}</a> > {{ product.name }}</i></small>
                 <h1>{{ product.name }}</h1>
-                <span class="d-block mb-3">Net Price: {{ product.price }} $</span>
+                <span class="d-block mb-3">{{ product.pricewt|price }}</span>
                 {{ product.description|raw }}
-                <a  href="{{ path('app_cart_add',{id:product.id}) }}" class="btn btn-success w-100 mt-3">Add to Cart</a>
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <a href="{{ path('app_cart_add', { id : product.id } ) }}" class="btn btn-success w-100">Add to cart</a>
+
+                    {% if app.user %}
+                        {% if product in app.user.wishlists %}
+
+                            <a class="wishlist-icon wishlist-icon-active" href="{{ path('app_account_wishlist_remove', { id : product.id } ) }}" style="margin-left: 10px;">
+                                <i data-feather="heart"></i>
+                            </a>
+                        {% else %}
+                            <a class="wishlist-icon " href="{{ path('app_account_wishlist_add', { id : product.id } ) }}" style="margin-left: 10px;">
+                                <i data-feather="heart"></i>
+                            </a>
+                        {% endif %}
+                    {% else %}
+                        <a data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style="margin-left: 10px;">
+                            <i data-feather="heart"></i>
+                        </a>
+                    {% endif %}
+                </div>
+
+                <div class="collapse" id="collapseExample">
+                    <div class="mt-2">
+                        To use the Wishlist features, <a href="{{ path('app_login') }}">log in</a> or <a href="{{ path('app_register') }}">create your customer account</a>.
+                    </div>
+                </div>
+
             </div>
         </div>
+
     </div>
 
 {% endblock %}
