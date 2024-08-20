@@ -23,7 +23,7 @@ This shopping site allows users to browse and purchase products online. It offer
 clone the depo :
 ```bash
 git clone https://github.com/marwane2001/Shopping_Website.git
-cd <Shopping_Website>
+cd Shopping_Website
 composer install
 ```
 <br>
