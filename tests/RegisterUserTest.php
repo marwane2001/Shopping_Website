@@ -10,7 +10,7 @@ class RegisterUserTest extends WebTestCase
     {
         //1
         $client = static::createClient();
-        $client->request('GET', '/inscription');
+        $client->request('GET', '/register');
         //2(fill form)
         $client->submitForm('Valider', [
             'register_user[email]'=>'marwanex@gmail.com',
