@@ -19,8 +19,6 @@ This shopping site allows users to browse and purchase products online. It offer
 - Composer
 
 ## Installation
-
-clone the depo :
 ```bash
 git clone https://github.com/marwane2001/Shopping_Website.git
 cd Shopping_Website
