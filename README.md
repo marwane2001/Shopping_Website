@@ -26,6 +26,9 @@ git clone https://github.com/marwane2001/Shopping_Website.git
 cd Shopping_Website
 composer install
 (configure the .env file according to your database)
+php bin/console doctrine:database:create or symfony console d:d:c
+php bin/console doctrine:migrations:migrate or symfony console d:m:m
+symfony server:start
 ```
 <br>
 Link: https://shopping-webapp.reactive-chat.tech
