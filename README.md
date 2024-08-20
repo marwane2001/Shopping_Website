@@ -25,7 +25,7 @@ clone the depo :
 git clone https://github.com/marwane2001/Shopping_Website.git
 cd <Shopping_Website>
 composer install
-
+```
 <br>
 Link: https://shopping-webapp.reactive-chat.tech
 <br>
