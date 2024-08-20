@@ -25,6 +25,7 @@ clone the depo :
 git clone https://github.com/marwane2001/Shopping_Website.git
 cd Shopping_Website
 composer install
+(configure the .env file according to your database)
 ```
 <br>
 Link: https://shopping-webapp.reactive-chat.tech
