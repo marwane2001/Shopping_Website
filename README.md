@@ -2,7 +2,7 @@
 
 ## Site Objective
 
-This shopping site allows users to browse and purchase products online. It offers features such as cart management, order processing, and user authentication.
+This shopping site allows users to browse and purchase products online. It offers features such as cart management, order processing, and user authentication,adminpanel.
 
 ## Technologies Used
 
