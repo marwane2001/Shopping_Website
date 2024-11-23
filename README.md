@@ -40,7 +40,7 @@ symfony server:start
 
 <h2>🔗 Link</h2>
 <p>
-  <a href="https://shopping-webapp.reactive-chat.tech">https://shopping-webapp.reactive-chat.tech</a>
+  <a href="https://shopping-webapp.reactive-chat.tech">https://shopping-webapp.reactive-chat.tech (obsolete for the moment)</a>
 </p>
 
 <h2>👤 Project Developer</h2>
